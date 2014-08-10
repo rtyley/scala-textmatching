@@ -12,9 +12,9 @@ name := "scala-textmatching"
 
 description := "Unifying simple globs, regex & literal matchers"
 
-scalaVersion := "2.11.0"
+scalaVersion := "2.11.2"
 
-crossScalaVersions := Seq("2.10.4", "2.11.0")
+crossScalaVersions := Seq("2.10.4", "2.11.2")
 
 libraryDependencies ++= Seq(
   globs,
