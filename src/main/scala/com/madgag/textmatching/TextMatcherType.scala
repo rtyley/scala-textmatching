@@ -22,7 +22,6 @@ package com.madgag.textmatching
 import util.matching.Regex
 import com.madgag.globs.openjdk.Globs
 
-import RegexReplacer._
 import java.util.regex.Pattern
 
 object TextMatcher {
@@ -41,6 +40,8 @@ case class TextMatcher(typ: TextMatcherType, expression: String) extends (String
   lazy val r = typ.regexFor(expression)
 
   override def apply(s: String) = r.matches(s)
+
+  lazy override val toString =  s"${typ.expressionPrefix}:<$expression>"
 }
 
 object TextMatcherTypes {
