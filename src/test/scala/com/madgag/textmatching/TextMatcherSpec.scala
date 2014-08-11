@@ -31,6 +31,14 @@ class TextMatcherSpec extends Specification {
 
       TextMatcher("boom", Reg) mustEqual Reg("boom")
     }
+    "use default type if no type specified" in {
+      TextMatcher("b{4}", defaultType = Glob) mustEqual Glob("b{4}")
+      TextMatcher("b{4}", defaultType = Literal) mustEqual Literal("b{4}")
+    }
+    "use parsed type if present" in {
+      TextMatcher("literal:b{4}", defaultType = Glob) mustEqual Literal("b{4}")
+      TextMatcher("glob:b{4}", defaultType = Literal) mustEqual Glob("b{4}")
+    }
     "quote content of literal expression in generated regex" in {
       "what was b4 this?" must =~ (TextMatcher("literal:b4").r)
 
