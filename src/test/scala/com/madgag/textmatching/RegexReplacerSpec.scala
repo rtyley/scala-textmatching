@@ -20,7 +20,6 @@
 package com.madgag.textmatching
 
 import org.specs2.mutable._
-import RegexReplacer._
 
 class RegexReplacerSpec extends Specification {
 
