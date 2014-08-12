@@ -21,6 +21,8 @@ libraryDependencies ++= Seq(
   specs2 % "test"
 )
 
+pgpPublicRing := file("project/dependency-signer-keys.gpg")
+
 scmInfo := Some(ScmInfo(
   url("https://github.com/rtyley/scala-textmatching"),
   "scm:git:git@github.com:rtyley/scala-textmatching.git"
