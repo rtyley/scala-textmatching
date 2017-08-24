@@ -1,10 +1,4 @@
-import sbtrelease._
-import ReleaseStateTransformations._
-import Dependencies._
-
-releaseSettings
-
-sonatypeSettings
+import ReleaseTransformations._
 
 organization := "com.madgag"
 
@@ -12,13 +6,13 @@ name := "scala-textmatching"
 
 description := "Unifying simple globs, regex & literal matchers"
 
-scalaVersion := "2.11.2"
+scalaVersion := "2.12.3"
 
-crossScalaVersions := Seq("2.10.4", "2.11.2")
+crossScalaVersions := Seq(scalaVersion.value, "2.11.11")
 
 libraryDependencies ++= Seq(
-  globs,
-  specs2 % "test"
+  "com.madgag" % "globs-for-java" % "0.2",
+  "org.scalatest" %% "scalatest" % "3.0.1" % "test"
 )
 
 scmInfo := Some(ScmInfo(
@@ -39,7 +33,11 @@ pomExtra := (
 
 licenses in ThisBuild := Seq("GPLv3" -> url("http://www.gnu.org/licenses/gpl-3.0.html"))
 
-ReleaseKeys.releaseProcess := Seq[ReleaseStep](
+releaseCrossBuild := true // true if you cross-build the project for multiple Scala versions
+
+releasePublishArtifactsAction := PgpKeys.publishSigned.value // Use publishSigned in publishArtifacts step
+
+releaseProcess := Seq[ReleaseStep](
   checkSnapshotDependencies,
   inquireVersions,
   runClean,
@@ -47,13 +45,11 @@ ReleaseKeys.releaseProcess := Seq[ReleaseStep](
   setReleaseVersion,
   commitReleaseVersion,
   tagRelease,
-  ReleaseStep(
-    action = state => Project.extract(state).runTask(PgpKeys.publishSigned, state)._1,
-    enableCrossBuild = true
-  ),
+  publishArtifacts,
   setNextVersion,
   commitNextVersion,
-  ReleaseStep(state => Project.extract(state).runTask(SonatypeKeys.sonatypeReleaseAll, state)._1),
+  releaseStepCommand("sonatypeReleaseAll"),
   pushChanges
 )
+
 

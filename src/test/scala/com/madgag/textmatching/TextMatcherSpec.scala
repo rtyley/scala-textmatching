@@ -19,33 +19,32 @@
 
 package com.madgag.textmatching
 
-import org.specs2.mutable._
+import org.scalatest.{FlatSpec, Matchers}
 
-class TextMatcherSpec extends Specification {
+class TextMatcherSpec extends FlatSpec with Matchers {
 
-  "text matcher creation" should {
+  "text matcher creation" should
     "parse prefix if present" in {
-      TextMatcher("literal:foobar") mustEqual Literal("foobar")
-      TextMatcher("glob:foobar") mustEqual Glob("foobar")
-      TextMatcher("regex:foobar") mustEqual Reg("foobar")
+    TextMatcher("literal:foobar") shouldBe Literal("foobar")
+    TextMatcher("glob:foobar") shouldBe Glob("foobar")
+    TextMatcher("regex:foobar") shouldBe Reg("foobar")
 
-      TextMatcher("boom", Reg) mustEqual Reg("boom")
-    }
-    "use default type if no type specified" in {
-      TextMatcher("b{4}", defaultType = Glob) mustEqual Glob("b{4}")
-      TextMatcher("b{4}", defaultType = Literal) mustEqual Literal("b{4}")
-    }
-    "use parsed type if present" in {
-      TextMatcher("literal:b{4}", defaultType = Glob) mustEqual Literal("b{4}")
-      TextMatcher("glob:b{4}", defaultType = Literal) mustEqual Glob("b{4}")
-    }
-    "quote content of literal expression in generated regex" in {
-      "what was b4 this?" must =~ (TextMatcher("literal:b4").r)
+    TextMatcher("boom", Reg) shouldBe Reg("boom")
+  }
+  it should "use default type if no type specified" in {
+    TextMatcher("b{4}", defaultType = Glob) shouldBe Glob("b{4}")
+    TextMatcher("b{4}", defaultType = Literal) shouldBe Literal("b{4}")
+  }
+  it should "use parsed type if present" in {
+    TextMatcher("literal:b{4}", defaultType = Glob) shouldBe Literal("b{4}")
+    TextMatcher("glob:b{4}", defaultType = Literal) shouldBe Glob("b{4}")
+  }
+  it should "quote content of literal expression in generated regex" in {
+    "what was b4 this?" should include regex TextMatcher("literal:b4").r
 
-      "what was b{4} this?" must =~ (TextMatcher("literal:b{4}").r)
-      "what was bbbb this?" must not =~ (TextMatcher("literal:b{4}").r)
+    "what was b{4} this?" should include regex TextMatcher("literal:b{4}").r
+    "what was bbbb this?" should not include regex(TextMatcher("literal:b{4}").r)
 
-      "what was bbbb this?" must =~ (TextMatcher("regex:b{4}").r)
-    }
+    "what was bbbb this?" should include regex TextMatcher("regex:b{4}").r
   }
 }

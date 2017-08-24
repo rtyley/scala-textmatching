@@ -19,20 +19,20 @@
 
 package com.madgag.textmatching
 
-import org.specs2.mutable._
+import org.scalatest._
 
-class RegexReplacerSpec extends Specification {
+class RegexReplacerSpec extends FlatSpec with Matchers {
 
-  "regex replacer" should {
+  "regex replacer" should
     "support a simple closure" in {
-      val replacer = """f\w*d""".r --> (_.group(0).length.toString)
+    val replacer = """f\w*d""".r --> (_.group(0).length.toString)
 
-      replacer("bing fod feed") mustEqual("bing 3 4")
-    }
-    "support Java appendReplacement syntax" in {
-      val replacer = """f(\w*)d""".r --> "x$1y"
+    replacer("bing fod feed") should be("bing 3 4")
+  }
 
-      replacer("bing fod feed") mustEqual("bing xoy xeey")
-    }
+  it should "support Java appendReplacement syntax" in {
+    val replacer = """f(\w*)d""".r --> "x$1y"
+
+    replacer("bing fod feed") should be("bing xoy xeey")
   }
 }
