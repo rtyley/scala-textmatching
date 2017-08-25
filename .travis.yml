@@ -7,11 +7,6 @@ scala:
 jdk:
   - oraclejdk8
 
-matrix:
-  include:
-  - jdk: openjdk7
-    scala: 2.11.11
-
 # These directories are cached to S3 at the end of the build
 cache:
   directories:
