@@ -6,13 +6,13 @@ name := "scala-textmatching"
 
 description := "Unifying simple globs, regex & literal matchers"
 
-scalaVersion := "2.12.3"
+scalaVersion := "2.13.0"
 
-crossScalaVersions := Seq(scalaVersion.value, "2.11.11")
+crossScalaVersions := Seq(scalaVersion.value, "2.12.8")
 
 libraryDependencies ++= Seq(
   "com.madgag" % "globs-for-java" % "0.2",
-  "org.scalatest" %% "scalatest" % "3.0.1" % "test"
+  "org.scalatest" %% "scalatest" % "3.0.8" % "test"
 )
 
 scmInfo := Some(ScmInfo(
