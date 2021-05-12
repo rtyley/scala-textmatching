@@ -1,7 +1,9 @@
 scala-textmatching
 ==================
 
-A small Scala veneer over text-matching that unifies globs, regexs and literals.
+_A small Scala veneer over text-matching that unifies globs, regexs and literals._
+
+[![scala-textmatching artifacts](https://index.scala-lang.org/rtyley/scala-textmatching/scala-textmatching/latest-by-scala-version.svg)](https://index.scala-lang.org/rtyley/scala-textmatching/scala-textmatching/)
 
 ```
 scala> import com.madgag.textmatching._
