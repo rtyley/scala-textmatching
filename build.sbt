@@ -6,13 +6,13 @@ name := "scala-textmatching"
 
 description := "Unifying simple globs, regex & literal matchers"
 
-scalaVersion := "2.13.0"
+scalaVersion := "2.13.5"
 
-crossScalaVersions := Seq(scalaVersion.value, "2.12.8")
+crossScalaVersions := Seq(scalaVersion.value, "2.12.8", "3.0.0-RC3")
 
 libraryDependencies ++= Seq(
   "com.madgag" % "globs-for-java" % "0.2",
-  "org.scalatest" %% "scalatest" % "3.0.8" % "test"
+  "org.scalatest" %% "scalatest" % "3.2.8" % Test
 )
 
 scmInfo := Some(ScmInfo(
@@ -20,9 +20,7 @@ scmInfo := Some(ScmInfo(
   "scm:git:git@github.com:rtyley/scala-textmatching.git"
 ))
 
-publishTo :=
-  Some(if (isSnapshot.value) Opts.resolver.sonatypeSnapshots else Opts.resolver.sonatypeStaging)
-
+publishTo := sonatypePublishToBundle.value
 
 pomExtra := (
 <url>https://github.com/rtyley/scala-textmatching</url>
@@ -35,11 +33,9 @@ pomExtra := (
 </developers>
 )
 
-licenses in ThisBuild := Seq("GPLv3" -> url("http://www.gnu.org/licenses/gpl-3.0.html"))
+ThisBuild / licenses := Seq("GPLv3" -> url("http://www.gnu.org/licenses/gpl-3.0.html"))
 
 releaseCrossBuild := true // true if you cross-build the project for multiple Scala versions
-
-releasePublishArtifactsAction := PgpKeys.publishSigned.value // Use publishSigned in publishArtifacts step
 
 releaseProcess := Seq[ReleaseStep](
   checkSnapshotDependencies,
@@ -49,11 +45,10 @@ releaseProcess := Seq[ReleaseStep](
   setReleaseVersion,
   commitReleaseVersion,
   tagRelease,
-  publishArtifacts,
+  // For non cross-build projects, use releaseStepCommand("publishSigned")
+  releaseStepCommandAndRemaining("+publishSigned"),
+  releaseStepCommand("sonatypeBundleRelease"),
   setNextVersion,
   commitNextVersion,
-  releaseStepCommand("sonatypeReleaseAll"),
   pushChanges
 )
-
-

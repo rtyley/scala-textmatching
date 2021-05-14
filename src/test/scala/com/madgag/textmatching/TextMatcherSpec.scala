@@ -19,9 +19,10 @@
 
 package com.madgag.textmatching
 
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 
-class TextMatcherSpec extends FlatSpec with Matchers {
+class TextMatcherSpec extends AnyFlatSpec with Matchers {
 
   "text matcher creation" should
     "parse prefix if present" in {

@@ -19,9 +19,10 @@
 
 package com.madgag.textmatching
 
-import org.scalatest._
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 
-class RegexReplacerSpec extends FlatSpec with Matchers {
+class RegexReplacerSpec extends AnyFlatSpec with Matchers {
 
   "regex replacer" should
     "support a simple closure" in {

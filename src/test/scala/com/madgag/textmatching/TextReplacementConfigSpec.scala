@@ -20,10 +20,10 @@
 
 package com.madgag.textmatching
 
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 
-import org.scalatest.{FlatSpec, Matchers}
-
-class TextReplacementConfigSpec extends FlatSpec with Matchers {
+class TextReplacementConfigSpec extends AnyFlatSpec with Matchers {
   "text replacement config" should
     "default to using ***REMOVED*** for the replacement text" in {
     TextReplacementConfig("1234", "***REMOVED***").apply("password:1234") shouldBe "password:***REMOVED***"
