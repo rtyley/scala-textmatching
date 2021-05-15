@@ -8,11 +8,11 @@ description := "Unifying simple globs, regex & literal matchers"
 
 scalaVersion := "2.13.5"
 
-crossScalaVersions := Seq(scalaVersion.value, "2.12.13", "3.0.0-RC3")
+crossScalaVersions := Seq(scalaVersion.value, "2.12.13", "3.0.0")
 
 libraryDependencies ++= Seq(
   "com.madgag" % "globs-for-java" % "0.2",
-  "org.scalatest" %% "scalatest" % "3.2.8" % Test
+  "org.scalatest" %% "scalatest" % "3.2.9" % Test
 )
 
 scmInfo := Some(ScmInfo(
